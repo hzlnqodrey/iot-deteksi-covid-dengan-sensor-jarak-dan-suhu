@@ -40,9 +40,8 @@ void setup() {
     pinMode(ECHO_PIN, INPUT);
     pinMode(TRIGGER_PIN, OUTPUT);
     // Temperature
-    
-    Serial.begin(9600);
     Serial.println("mulai");
+
     initWifi();
 }
 
@@ -66,6 +65,53 @@ void loop() {
     Serial.print("Jarak : ");
     Serial.print(jarak);
     Serial.println(" cm");
+
+    //3. Statement pengendalian pendeteksi covidnya
+    if( jarak <= 100 ) {
+            
+        // 4. Alarm yang memberi tahu kalau ada orang yang mendekat ke sensor
+        // - LED Kuning Menyala
+        // - Buzzer berbunyi dari frekuensi kecil ke besar 
+        digitalWrite(YLW_LED, LOW);
+        delay(100);
+        digitalWrite(YLW_LED, HIGH);
+        delay(100);    	
+        tone(buzzer, 100, 1000); // Send 100 Hz sound signal
+        delay(1000);       
+        tone(buzzer, 250, 1000);  // Send 250 Hz sound signal
+        delay(1000);		 
+        tone(buzzer, 500, 1000);  // Send 500 Hz sound signal
+        delay(1000);		  
+        tone(buzzer, 700, 1000);  // Send 700 Hz sound signal
+        delay(1000);		  
+        tone(buzzer, 800, 1000);  // Send 800 Hz sound signal
+        delay(1000);		  
+        tone(buzzer, 1000, 1000);  // Send 1 KHz sound signal
+        delay(1000);
+
+            // 5. Jika Suhu Orang di depan sensor kita lebih dari 35C, maka berikan notif pada alarm
+            // - LED Merah 
+            // - BUZZER berbunyi cepat
+            while ( tempC >= 35.0 ) {
+                digitalWrite(RED_LED, LOW);
+                delay(100);
+                digitalWrite(RED_LED, HIGH);
+
+                delay(100);
+                digitalWrite(YLW_LED, LOW);
+
+                tone(buzzer, 1000);
+                delay(50);
+                noTone(buzzer);
+                delay(50);
+            }
+            
+    } else {
+        digitalWrite(YLW_LED, LOW);
+        delay(100);
+        noTone(buzzer);
+        delay(200);
+    }
 }
 
 void initWifi() {
