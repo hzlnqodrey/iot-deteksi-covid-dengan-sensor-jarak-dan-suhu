@@ -1,6 +1,7 @@
 // Import Library
 #include "FirebaseESP8266.h"
 #include <ESP8266WiFi.h>
+#include <WiFiUdp.h>
 #include <time.h>
 
 // Firebase Config
@@ -12,8 +13,8 @@
     String nodeID = "WemosD1Mini";
 
 // Wifi Config
-char ssid[] = "Hazlan Muhammad Qodri's iPhone";
-char pass[] = "nantiduluya";
+char SSID[] = "Hazlan Muhammad Qodri's iPhone";
+char PASS[] = "nantiduluya";
 
 
 void setup() {
@@ -31,7 +32,7 @@ void initWifi() {
     Serial.println();
     Serial.println();
 
-    WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+    WiFi.begin(SSID, PASS);
     Serial.print("Connecting to Wi-Fi");
     while (WiFi.status() != WL_CONNECTED)
     {
