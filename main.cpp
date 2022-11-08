@@ -48,7 +48,24 @@ void setup() {
 
 void loop() {
 
-
+    // 1. Ultrasonic Configuration
+    // [*] Matikan dahulu trigger pin
+    digitalWrite(TRIGGER_PIN, LOW); 
+    delayMicroseconds(2);
+    // [*] Aktivasi trigger pin
+    digitalWrite(TRIGGER_PIN, HIGH);
+    delayMicroseconds(15);
+    digitalWrite(TRIGGER_PIN, LOW);
+    // [*] Menghitung Waktu dari gelombang ultrasonik
+    // echo pin sebagai signal receiver dari trigger pin yang 
+    // bertugas sebagai signal transmitter
+    waktu = pulseIn(ECHO_PIN, HIGH);
+    // [*] Menghitung Jarak ( kec * duration )
+    jarak = waktu * (0.0345 / 2 );
+    // [*] Info pembantu di serial monitor
+    Serial.print("Jarak : ");
+    Serial.print(jarak);
+    Serial.println(" cm");
 }
 
 void initWifi() {
