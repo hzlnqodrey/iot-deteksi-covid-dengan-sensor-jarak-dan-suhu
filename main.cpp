@@ -47,6 +47,12 @@ void initWifi() {
     Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);
     Firebase.reconnectWiFi(true);
 
+    //Set database read timeout to 1 minute (max 15 minutes)
+    Firebase.setReadTimeout(firebaseData, 1000 * 60);
+    //tiny, small, medium, large and unlimited.
+    //Size and its write timeout e.g. tiny (1s), small (10s), medium (30s) and large (60s).
+    Firebase.setwriteSizeLimit(firebaseData, "tiny");
+
     if (!Firebase.beginStream(firebaseData, path + "/" + nodeID))
     {
         Serial.println("Could not begin stream");
