@@ -16,6 +16,16 @@
 char SSID[] = "Hazlan Muhammad Qodri's iPhone";
 char PASS[] = "nantiduluya";
 
+// Declare Static Variable
+#define ECHO_PIN 3
+#define TRIGGER_PIN 4
+#define buzzer 5
+#define RED_LED 7
+#define YLW_LED 8
+
+// Declare Helper Variable
+long waktu;
+int jarak;
 
 void setup() {
     // put your setup code here, to run once:
