@@ -30,6 +30,19 @@ int jarak;
 void setup() {
     // put your setup code here, to run once:
     Serial.begin(9600);
+    
+    // LED
+    pinMode(RED_LED, OUTPUT);
+    pinMode(YLW_LED, OUTPUT);
+    // Buzzer
+    pinMode(buzzer, OUTPUT);
+    // Ultrasonik
+    pinMode(ECHO_PIN, INPUT);
+    pinMode(TRIGGER_PIN, OUTPUT);
+    // Temperature
+    
+    Serial.begin(9600);
+    Serial.println("mulai");
     initWifi();
 }
 
