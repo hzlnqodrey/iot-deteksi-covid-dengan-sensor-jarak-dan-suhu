@@ -3,6 +3,7 @@
 #include <ESP8266WiFi.h>
 #include <WiFiUdp.h>
 #include <time.h>
+#include <DHT.h>
 
 // Firebase Config
 #define FIREBASE_HOST "https://tedi-backend-web-default-rtdb.asia-southeast1.firebasedatabase.app/"  //Change to your Firebase RTDB project ID e.g. Your_Project_ID.firebaseio.com
@@ -27,6 +28,10 @@ char PASS[] = "nantiduluya";
 long waktu;
 int jarak;
 
+const long utcOffsetInSeconds = 25200;
+WiFiUDP ntpUDP;
+NTPClient timeClient(ntpUDP, "id.pool.ntp.org", utcOffsetInSeconds);
+
 void setup() {
     // put your setup code here, to run once:
     Serial.begin(9600);
@@ -43,10 +48,13 @@ void setup() {
     Serial.println("mulai");
 
     initWifi();
+    timeClient.begin();
 }
 
 void loop() {
 
+    WiFiClient client;
+    timeClient.update();
     // 1. Ultrasonic Configuration
     // [*] Matikan dahulu trigger pin
     digitalWrite(TRIGGER_PIN, LOW); 
