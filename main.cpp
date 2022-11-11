@@ -23,6 +23,10 @@ char PASS[] = "nantiduluya";
 #define buzzer 5
 #define RED_LED 7
 #define YLW_LED 8
+#define DHTPIN 9
+#define DHTTYPE DHT11
+
+DHT dht(DHTPIN, DHTTYPE);
 
 // Declare Helper Variable
 long waktu;
@@ -46,6 +50,19 @@ void setup()
     pinMode(ECHO_PIN, INPUT);
     pinMode(TRIGGER_PIN, OUTPUT);
     // Temperature
+    dht.begin();
+    float h = dht.readHumidity();
+    float t = dht.readTemperature();
+    Serial.print("Humidity: ");
+    Serial.print(h);
+    Serial.print(" %\t");
+    Serial.print("Temperature: ");
+    Serial.print(t);
+    Serial.print(" *C ");
+    Serial.print("Heat index: ");
+    Serial.print(hic);
+    Serial.print(" *C ");
+    
     Serial.println("mulai");
 
     initWifi();
@@ -76,9 +93,13 @@ void loop()
     Serial.print(jarak);
     Serial.println(" cm");
 
+    // 2. Temperature Configuration
+    delay(2000);    
+    
     // 3. Statement pengendalian pendeteksi covidnya
     if (jarak <= 100)
     {
+        String waktu = String(timeClient.getFormattedTime());
         if (Firebase.setString(firebaseData, "/data_terakhir", waktu))
         {
             Serial.print("Data terkirim!");
@@ -108,10 +129,10 @@ void loop()
         // - LED Merah
         // - BUZZER berbunyi cepat
         // - kirim format waktu dan data temperature ke firebase real time database
-        String waktu = String(timeClient.getFormattedTime());
-        while (tempC >= 35.0)
+
+        while (t >= 35.0)
         {
-            if (Firebase.setFloat(firebaseData, "/temperature_in", tempC))
+            if (Firebase.setFloat(firebaseData, "/temperature_in", t))
             {
                 Serial.print("Data have been sent")
             }
