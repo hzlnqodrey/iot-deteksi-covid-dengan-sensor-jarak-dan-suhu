@@ -93,6 +93,8 @@ void loop()
         return;
     }
 
+    float hic = dht.computeHeatIndex(t, h, false);
+
     Serial.print("Humidity: ");
     Serial.print(h);
     Serial.print(" %\t");
