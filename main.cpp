@@ -4,6 +4,7 @@
 #include <WiFiUdp.h>
 #include <time.h>
 #include <DHT.h>
+#include <NTPClient.h>
 
 // Firebase Config
 #define FIREBASE_HOST "https://tedi-backend-web-default-rtdb.asia-southeast1.firebasedatabase.app/" // Change to your Firebase RTDB project ID e.g. Your_Project_ID.firebaseio.com
@@ -143,7 +144,7 @@ void loop()
         {
             if (Firebase.setFloat(firebaseData, "/temperature_in", t))
             {
-                Serial.print("Data have been sent")
+                Serial.print("Data have been sent");
             }
 
             digitalWrite(RED_LED, LOW);
