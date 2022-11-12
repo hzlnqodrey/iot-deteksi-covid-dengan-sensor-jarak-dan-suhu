@@ -84,18 +84,25 @@ void loop()
 
     // 2. Temperature Configuration
     delay(2000)  
-    float h = dht.readHumidity()
-    float t = dht.readTemperature()
-    Serial.print("Humidity: ")
-    Serial.print(h)
-    Serial.print(" %\t")
-    Serial.print("Temperature: ")
-    Serial.print(t)
-    Serial.print(" *C ")
-    Serial.print("Heat index: ")
-    Serial.print(hic)
-    Serial.print(" *C ")
-    
+    float h = dht.readHumidity();
+    float t = dht.readTemperature();
+
+    // Check if any reads failed and exit early (to try again).
+    if (isnan(h) || isnan(t) || isnan(f)) {
+        Serial.println("Failed to read from DHT sensor!");
+        return;
+    }
+
+    Serial.print("Humidity: ");
+    Serial.print(h);
+    Serial.print(" %\t");
+    Serial.print("Temperature: ");
+    Serial.print(t);
+    Serial.print(" *C ");
+    Serial.print("Heat index: ");
+    Serial.print(hic);
+    Serial.print(" *C ");
+
     // 3. Statement pengendalian pendeteksi covidnya
     if (jarak <= 100)
     {
