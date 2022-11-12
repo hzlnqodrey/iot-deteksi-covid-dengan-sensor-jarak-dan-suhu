@@ -52,7 +52,7 @@ void setup()
     pinMode(TRIGGER_PIN, OUTPUT);
     // Temperature
     dht.begin();
-    
+
     Serial.println("mulai");
 
     initWifi();
@@ -84,12 +84,13 @@ void loop()
     Serial.println(" cm");
 
     // 2. Temperature Configuration
-    delay(2000)  
+    delay(2000);
     float h = dht.readHumidity();
     float t = dht.readTemperature();
 
     // Check if any reads failed and exit early (to try again).
-    if (isnan(h) || isnan(t) || isnan(f)) {
+    if (isnan(h) || isnan(t))
+    {
         Serial.println("Failed to read from DHT sensor!");
         return;
     }
