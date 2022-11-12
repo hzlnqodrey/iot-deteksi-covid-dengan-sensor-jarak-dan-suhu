@@ -51,17 +51,6 @@ void setup()
     pinMode(TRIGGER_PIN, OUTPUT);
     // Temperature
     dht.begin();
-    float h = dht.readHumidity();
-    float t = dht.readTemperature();
-    Serial.print("Humidity: ");
-    Serial.print(h);
-    Serial.print(" %\t");
-    Serial.print("Temperature: ");
-    Serial.print(t);
-    Serial.print(" *C ");
-    Serial.print("Heat index: ");
-    Serial.print(hic);
-    Serial.print(" *C ");
     
     Serial.println("mulai");
 
@@ -94,7 +83,18 @@ void loop()
     Serial.println(" cm");
 
     // 2. Temperature Configuration
-    delay(2000);    
+    delay(2000)  
+    float h = dht.readHumidity()
+    float t = dht.readTemperature()
+    Serial.print("Humidity: ")
+    Serial.print(h)
+    Serial.print(" %\t")
+    Serial.print("Temperature: ")
+    Serial.print(t)
+    Serial.print(" *C ")
+    Serial.print("Heat index: ")
+    Serial.print(hic)
+    Serial.print(" *C ")
     
     // 3. Statement pengendalian pendeteksi covidnya
     if (jarak <= 100)
