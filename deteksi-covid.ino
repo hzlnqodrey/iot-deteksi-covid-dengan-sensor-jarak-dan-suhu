@@ -8,7 +8,7 @@
 
 // Firebase Config
 #define FIREBASE_HOST "https://tedi-backend-web-default-rtdb.asia-southeast1.firebasedatabase.app/" // Change to your Firebase RTDB project ID e.g. Your_Project_ID.firebaseio.com
-#define FIREBASE_AUTH "IrNMHPxzEy9sMGXZAYSmVidwHG1ycdYSS1MlJDBB"
+#define FIREBASE_AUTH "xxxxxxxxxxxxxxxxxx"
 // Define Firebase Data Objects
 FirebaseData firebaseData;
 String path = "/Node";
