@@ -8,15 +8,15 @@
 
 // Firebase Config
 #define FIREBASE_HOST "https://tedi-backend-web-default-rtdb.asia-southeast1.firebasedatabase.app/" // Change to your Firebase RTDB project ID e.g. Your_Project_ID.firebaseio.com
-#define FIREBASE_AUTH "xxxxxxxxxxxxxxxxxx"
+#define FIREBASE_AUTH "IrNMHPxzEy9sMGXZAYSmVidwHG1ycdYSS1MlJDBB"
 // Define Firebase Data Objects
 FirebaseData firebaseData;
 String path = "/Node";
-String nodeID = "WemosD1Mini";
+String nodeID = "WemosD1Mini";      
 
 // Wifi Config
-char SSID[] = "Aderald";        // harus tersambung wifi dulu bukan tethering
-char PASS[] = "AderaldAbghari";
+char SSID[] = "Bolivar Outdoor";        // harus tersambung wifi dulu bukan tethering
+char PASS[] = "PEANUTBUTTER";
 
 // Declare Static Variable
 #define ECHO_PIN D5
@@ -62,6 +62,9 @@ void setup()
 void loop()
 {
 
+    digitalWrite(YLW_LED, LOW);
+    digitalWrite(RED_LED, LOW);
+    
     WiFiClient client;
     timeClient.update();
     // 1. Ultrasonic Configuration
@@ -108,7 +111,7 @@ void loop()
     Serial.println(" *C ");
 
     // 3. Statement pengendalian pendeteksi covidnya
-    if (jarak <= 100)
+    if (jarak <= 50)
     {
         String waktu = String(timeClient.getFormattedTime());
         if (Firebase.setString(firebaseData, "/data_terakhir", waktu))
@@ -123,8 +126,7 @@ void loop()
         // 4. Alarm yang memberi tahu kalau ada orang yang mendekat ke sensor
         // - LED Kuning Menyala
         // - Buzzer berbunyi dari frekuensi kecil ke besar
-        digitalWrite(YLW_LED, LOW);
-        delay(100);
+        digitalWrite(RED_LED, LOW);
         digitalWrite(YLW_LED, HIGH);
         delay(100);
         tone(buzzer, 100, 1000); // Send 100 Hz sound signal
@@ -147,7 +149,7 @@ void loop()
 
         // karena sensor suhu yang dipakai itu untuk membaca "AMBIENCE TEMPERATUR" / Temperatur ruangan, maka untuk mencapai
         // suhu tubuh manusia itu tidak memungkinkan | jadi kita set logic tempnya cuman 20 derajat Celcius
-        while (t >= 20.0)
+        if (t >= 32.0)
         {
             if (Firebase.setFloat(firebaseData, "/temperature_in", t))
             {
@@ -166,10 +168,9 @@ void loop()
             noTone(buzzer);
             delay(50);
         }
-    }
-    else
-    {
+    } else {
         digitalWrite(YLW_LED, LOW);
+        digitalWrite(RED_LED, LOW);
         delay(100);
         noTone(buzzer);
         delay(200);
